@@ -1,0 +1,110 @@
+[gd_scene load_steps=17 format=3 uid="uid://dt65t1vq6itqt"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_3hkvb"]
+[ext_resource type="Texture2D" uid="uid://cxgn3vwkvtapf" path="res://assets/player/Jump4.png" id="1_dryof"]
+[ext_resource type="Texture2D" uid="uid://dfnuse6klds7r" path="res://assets/player/Idle0.png" id="2_g5jg7"]
+[ext_resource type="Texture2D" uid="uid://qmxtau2y0h85" path="res://assets/player/Run0.png" id="3_msiru"]
+[ext_resource type="Texture2D" uid="uid://chrkg3dpxab40" path="res://assets/player/Run1.png" id="4_1jqfy"]
+[ext_resource type="Texture2D" uid="uid://dx6vvtwapscv4" path="res://assets/player/Run2.png" id="5_sa6ty"]
+[ext_resource type="Texture2D" uid="uid://jda2svu6tv57" path="res://assets/player/Run3.png" id="6_e2w41"]
+[ext_resource type="Texture2D" uid="uid://qqilrysujv04" path="res://assets/player/Run4.png" id="7_6jked"]
+[ext_resource type="Texture2D" uid="uid://8t8ujhghujf4" path="res://assets/player/Run7.png" id="8_v1u5x"]
+[ext_resource type="Texture2D" uid="uid://ck8amurevpxul" path="res://assets/player/Jump1.png" id="9_6li60"]
+[ext_resource type="Texture2D" uid="uid://ctfwsibjpko5r" path="res://assets/parallax/layer_07_1920 x 1080.png" id="11_ooal4"]
+[ext_resource type="Script" path="res://parallax.gd" id="11_x2ldy"]
+[ext_resource type="Texture2D" uid="uid://dr5n3q48gl1lq" path="res://assets/parallax/booton.png" id="13_p20nv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ed6ag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dryof")
+}],
+"loop": true,
+"name": &"down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g5jg7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_msiru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1jqfy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sa6ty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e2w41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6jked")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_v1u5x")
+}],
+"loop": true,
+"name": &"run",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_6li60")
+}],
+"loop": true,
+"name": &"up",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0guu"]
+size = Vector2(28, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c2cy"]
+size = Vector2(630, 22)
+
+[node name="world-1" type="Node2D"]
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(268, 214)
+script = ExtResource("1_3hkvb")
+metadata/_edit_group_ = true
+
+[node name="animation" type="AnimatedSprite2D" parent="player"]
+sprite_frames = SubResource("SpriteFrames_ed6ag")
+animation = &"up"
+autoplay = "run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(1, 4)
+shape = SubResource("RectangleShape2D_v0guu")
+
+[node name="CharacterBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(289, 283)
+shape = SubResource("RectangleShape2D_4c2cy")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("11_x2ldy")
+
+[node name="moon" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(960, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/moon"]
+position = Vector2(466, 69)
+texture = ExtResource("11_ooal4")
+
+[node name="booton" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(768, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/booton"]
+position = Vector2(295, 71)
+texture = ExtResource("13_p20nv")
